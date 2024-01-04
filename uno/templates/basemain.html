@@ -21,17 +21,20 @@
                 {% endfor %}
             </ul>
         {% endif %}
+        
         <div class="logo_container">
             <div class = "logo"> <a href = "{% url 'uno:homepage' %}"> <img src="{% static 'uno/images/lotus.png' %}" width="100px" height = "auto"> </a> </div>
         </div>
         <div class="link_container">
             {% if user.is_authenticated %}
-            <div class = "link"> <a href = "{% url 'uno:add_post' %}">Add post</a> </div>
-            <div class = "link"> <a href = "{% url 'uno:logout' %}"> Logout</a></div>
-            
+                <div class = "link"> <a href = "{% url 'uno:add_post' %}">Add post</a> </div>
+                <div class = "link"> <a href = "{% url 'uno:logout' %}"> Logout</a></div>
+                <div class = "userinfo"> 
+                    <p>Logged in as:</p> <p class="username">{{ user.username }}</p>
+                </div>
             {% else %}
-            <div class = "link"> <a href = "{% url 'uno:login' %}"> Login</a></div>
-            <div class = "link"> <a href = "{% url 'uno:register' %}"> Register</a></div>
+                <div class = "link"> <a href = "{% url 'uno:login' %}"> Login</a></div>
+                <div class = "link"> <a href = "{% url 'uno:register' %}"> Register</a></div>
             {% endif %}
         </div>
 
