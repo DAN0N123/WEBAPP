@@ -1,0 +1,25 @@
+{% extends 'baseform.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Edit Post</title>
+{% endblock %}
+
+{% block content %}
+    <div class="add_user_box"> 
+        <h1 class="sign">Edit post</h1>
+        <div class="add_user_window"> 
+            <form class="post_form" action="{% url 'uno:edit_post' %}?id={{ post_id }}" method="post">         
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input id="submitbutton" type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.body.classList.add("loaded");
+    });
+</script>

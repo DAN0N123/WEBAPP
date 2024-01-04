@@ -1,0 +1,88 @@
+{% extends 'basemain.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Homepage</title>
+{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        {% if posts %}
+            <div class="posts">
+                {% for post in posts %}
+                {% if post.id == posts.0.id %}
+                <div class="btn-group" id="dropdown">
+                    <button type="button" class="btn btn-danger">Filter</button>
+                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                      <span class="visually-hidden">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="{% url 'uno:homepage' %}?action=Newest">Newest</a></li>
+                      <li><a class="dropdown-item" href="{% url 'uno:homepage' %}?action=Oldest">Oldest</a></li>
+                      <li><a class="dropdown-item" href="{% url 'uno:homepage' %}?action=My_posts">My posts</a></li>
+                      <!-- <li><hr class="dropdown-divider"></li> -->
+                    </ul>
+                  </div>
+                {% endif %}
+                <div class = "headbar" id="{{ post.id }}">
+                    <div class="post_username">
+                        <p>{{ post.username }}</p>
+                        <p>{{ post.created_at }}</p>
+                    </div>
+                    {% if post.username == user.username %}
+                    <div class="post_edit">
+                        <a class = "edit_button" href="/uno/edit_post/?id={{ post.id }}">Edit</a>
+                        <a href="/uno/delete_post/?id={{ post.id }}"><div class = "delete_button"><img src="{% static 'uno/images/delete.png' %}"></div></a>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="post_text">{{ post.post_text }}</div>
+                <div class = "interactions">
+                    <div class="like"><a href="/uno/like/?id={{ post.id }}&action={{ action }}"> <img src = "{% static 'uno/images/like.png' %}" width="100px" height = "auto"></a> <p class="like_count">{{ post.likes }}</p></div>
+                    <div class="dislike"><a href="/uno/dislike/?id={{ post.id }}&action={{ action }}"><img src = "{% static 'uno/images/dislike.png' %}" width="70px" height = "auto"></a><p class="dislike_count">{{ post.dislikes }}</p> </div>
+                    <div class="comments_image"><a href="/uno/comments/?id={{ post.id }}"><img src = "{% static 'uno/images/comments.png' %}" width="80px" height = "auto"></a></div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+        <div class="nopostsbox">
+            <p class="noposts">No posts available.</p>
+        </div>
+        {% endif %}
+    {% else %}
+    <div class = "text_and_button_flex">
+        <div class = "text_and_button">
+            <h1 class="main_text">Felipe Felipe is </br> awesome</h1> </br> 
+            <p class="secondary_text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vulputate mauris id diam pulvinar tincidunt. 
+                Morbi bibendum id orci in rhoncus. Ut vehicula efficitur nisi, vitae ultrices urna pharetra eu. Cras ut finibus libero, vel imperdiet ex. 
+            </p>
+            <div><a href = "/uno/register" class="rounded-button">Sign Up</a></div>
+        </div>
+        <div class = "image">
+            <img src ="{% static 'uno/images/guy.jpg' %}" width = 500px height = 300px>
+        </div>
+    </div>
+    <div class = "information">
+        <div class = "infotext"><h1>Some random information.</h1></div>
+        <div class = "image_frames">
+            <div class = "image_frame"> <div class="frame"><img src ="{% static 'uno/images/danon.jpg' %}" alt = "DANON" width = 150px height = 150px> </div> <p class = "frame_text">Danon danonik danon</p></div>
+            <div class = "image_frame"><div class="frame"><img src ="{% static 'uno/images/danon.jpg' %}" alt = "DANON" width = 150px height = 150px></div> <p class = "frame_text">Danon danonik danon</p></div>
+            <div class = "image_frame"><div class="frame"><img src ="{% static 'uno/images/danon.jpg' %}" alt = "DANON" width = 150px height = 150px></div> <p class = "frame_text">Danon danonik danon</p></div>
+            <div class = "image_frame"><div class="frame"><img src ="{% static 'uno/images/danon.jpg' %}" alt = "DANON" width = 150px height = 150px></div> <p class = "frame_text">Danon danonik danon</p></div>
+        </div>
+    </div>
+    <div class = "quote">
+        <div class = "quote_text"> <p id="quote">“How happy is the blameless vestal’s lot!
+            The world forgetting, by the world forgot.
+            Eternal sunshine of the spotless mind!
+            Each pray’r accepted, and each wish resign’d”</p></div>
+        <div class = "quote_author"> <p id = "author">- Alexander Pope, Eloisa to Abelard</p></div>
+    </div>
+    <div class = "ad">
+        <div class = "adbox">
+            <div class = "ad_text"><h3>Call to action! It's time!</h3><p>Sign up for our product by clicking that button right over there!</p></div>
+            <div class = "ad_button"> <a href = "/uno/register">Sign up</a></div>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}
