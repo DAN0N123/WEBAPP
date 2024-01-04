@@ -1,0 +1,50 @@
+
+
+.topbar{
+    display: flex;
+    height: 150px;
+    align-items: center;
+}
+
+.logo{
+    display: flex;
+    width: 80px;
+    height: 80px;
+    border: 3px solid black;
+}
+
+.searchbar{
+    display: flex;
+    align-items: center;
+    width: 900px;
+    height: 40px;
+}
+
+.search{
+    display: flex;
+    width: 100px;
+    border: 3px solid black;
+}
+
+.input{
+    display: flex;
+    width: 600px;
+    border: 3px solid black;
+
+}
+
+.categories{
+    display: flex;
+    width: 200px;
+    border: 3px solid black;
+
+}
+
+.messages,
+.cart{
+    display: flex;
+    width: 80px;
+    height: 80px;
+    align-items: center;
+    border: 3px solid black;
+}

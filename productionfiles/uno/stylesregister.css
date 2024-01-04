@@ -1,9 +1,16 @@
 body{
     background-color: #1F2937;
     margin: 0px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
-#logo{
+body.loaded {
+    opacity: 1;
+}
+
+
+#logo{ 
     margin-right: 40px;
 }
 
@@ -56,11 +63,11 @@ body{
 .form p input {
     width: 80%;
     padding: 10px;
-    margin-right: 0px;
     margin-bottom: 5px;
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 5px;
+    margin-left:22px;
 }
 
 #submitbutton{
@@ -113,19 +120,8 @@ input::placeholder{
     height: 150px;
     /* border: 3px solid red; */
     justify-content: center;
-    margin-right: 500px;
-    margin-left: -140px;
-    margin-right: 160px;
 } 
 
- .link_container {
-    margin-top: 40px;
-    display: flex;
-    width: 200px;
-    height: 150px;
-    /* border: 3px solid red;  */
-    margin-left: 500px;
-} 
 
 .logo{
     margin: 15px;
@@ -141,4 +137,54 @@ input::placeholder{
     margin-top: 20px;
     font-size: 18px;
     text-decoration: none;
+}
+
+.sign{
+    font-weight: 800;
+    font-size: 18px;
+    color: black;
+}
+
+
+.add_user_box{
+    display: flex;
+    height: 1000px;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.add_user_window{
+    display: flex;
+    width: 700px;
+    height: 700px;
+    justify-content: center;
+    /* border: 3px solid red; */
+}
+
+.post_form{
+    display: flex;
+    align-items: center;    
+    flex-direction: column;
+    width: 700px;
+    /* border: 3px solid red; */
+}
+
+.post_form p textarea{
+    display: flex;
+    width: 500px;
+    height: 300px;
+    border: 5px solid #8c8e92;
+    border-radius: 10px;
+    font-family: "roboto", sans-serif;
+    color: black;
+    font-size: 18px;
+    font-weight: 800;
+    background-color: #8c8e92;
+}
+
+#yo{
+    position: absolute;
+    margin-top: 20px;
+    margin-left: -1700px;
 }

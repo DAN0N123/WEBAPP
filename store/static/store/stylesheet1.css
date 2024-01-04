@@ -1,0 +1,145 @@
+*{
+    color: black;
+    font-size: 18px;
+}
+.body{
+    padding: 0;
+    margin: 0;
+}
+.top-bar{
+    display: flex;
+    height: 150px;
+    align-items: center;
+    flex-direction: row;
+    margin: 0;
+    border-bottom: 2px solid gray;
+}
+a{
+    text-decoration: none;
+}
+.logo{
+    display: flex;
+    width: 100px;
+    height: 80px;
+    margin-left: 80px;
+    color: #FF7B33;
+    font-weight: 700;
+    /* border: 3px solid black; */
+    align-items: center;
+    justify-content: center;
+
+}
+
+.searchbar{
+    display: flex;
+    align-items: center;
+    margin-left: 150px;
+    width: 900px;
+    height: 70px;
+}
+.dropdown#userdrop{
+    margin-left: 150px;
+}
+.search{
+    display: flex;
+    width: 100px;
+    height: 80%;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid black;
+}
+
+.input{
+    display: flex;
+    width: 600px;
+    height: 80%;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid black;
+
+}
+.form-control{
+    width: 600px;
+}
+
+.form-control:focus{
+    
+    box-shadow: 0 0 0 0.2rem rgba(255, 123, 51, 1); /* Change the color by modifying the rgba values */;
+    border-color:#FF7B33;
+
+}
+
+.btn-outline-success:hover {
+    color: #fff; 
+    background-color:#d85d1b; 
+    border-color: #d85d1b; 
+}
+
+.btn-outline-success{
+    border-color: #FF7B33;
+    color: white;
+    background-color: #FF7B33;
+    font-weight: 500;
+    font-size: 18px;
+}
+.dropdown-toggle{
+    background-color: white;
+    color: black;
+    border-color: #FF7B33;
+}
+
+.dropdown-toggle#user{
+    border-color: white;
+}
+.dropdown-toggle#user:hover{
+    border-color: white;
+    background-color: white;
+    color: black;
+}
+
+
+.btn-secondary.dropdown-toggle:hover {
+    background-color: white; 
+}
+
+
+.btn-secondary.dropdown-toggle:focus,
+.btn-secondary.dropdown-toggle:active {
+    background-color: white; 
+    color: black;
+}
+
+
+.cart{
+    display: flex;
+    width: 80px;
+    height: 80px;
+    margin-left: 50px;
+    align-items: center;
+    /* border: 3px solid black; */
+    align-items: center;
+    justify-content: center;
+}
+
+.messages{
+    display: flex;
+    width: 80px;
+    height: 80px;
+    margin-left: 120px;
+    align-items: center;
+    /* border: 3px solid black; */
+    align-items: center;
+    justify-content: center;
+}
+
+.account_info{
+    display: flex;
+    width: 120px;
+    height: 80px;
+    margin-left: 120px;
+    align-items: center;
+    border: 3px solid black;
+    align-items: center;
+    justify-content: center;
+    margin-right: 100px;
+}
