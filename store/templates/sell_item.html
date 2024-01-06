@@ -7,7 +7,7 @@
 
 {% block content %}
     <div class="sellitem"> 
-            <form class="post_form" action="{% url 'store:sell_item' %}" method="post">         
+            <form class="post_form" action="{% url 'store:sell_item' %}" method="post" enctype="multipart/form-data">         
                 {% csrf_token %}
                 <div class="box1">
                     {% for field in form.visible_fields %}
@@ -42,6 +42,7 @@
                                 {% if field.help_text %}
                                     <small class="form-text text-muted">{{ field.help_text }}</small>
                                 {% endif %}
+                                <!-- {{ field.errors }} -->
                             </div>
                         {% endif %}
                     {% endfor %}

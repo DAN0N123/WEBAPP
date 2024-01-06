@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from store.models import Item, Category
 from store.forms import SellItemForm
 def item_operations(items):
@@ -29,7 +30,9 @@ def sell_item(request):
         form = SellItemForm(request.POST, request.FILES)
         if form.is_valid():
             item = form.save()
-            return redirect('homepage', pk=item.pk)  
+            return redirect(reverse('store:homepage'))  
+        # else:
+        #     print(form.errors)
     else:
         form = SellItemForm()
     
