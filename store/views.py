@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from store.models import Item
+from django.shortcuts import render, redirect
+from store.models import Item, Category
+from store.forms import SellItemForm
 def item_operations(items):
     for item in items:
         item.total_price = item.price + item.delivery_price
@@ -18,7 +19,19 @@ def homepage(request):
     if query:
         items = Item.objects.filter(name__icontains=query)
     if category:
-        items = Item.objects.filter(category=category)
+        items = items.filter(category__name__iexact=category)
     item_operations(items)
+    items = reversed(items)
     return render(request, 'homepage.html', {'items':items})
+
+def sell_item(request):
+    if request.method == 'POST':
+        form = SellItemForm(request.POST, request.FILES)
+        if form.is_valid():
+            item = form.save()
+            return redirect('homepage', pk=item.pk)  
+    else:
+        form = SellItemForm()
+    
+    return render(request, 'sell_item.html', {'form':form})
 

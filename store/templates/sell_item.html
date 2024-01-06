@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Sell item</title>
+{% endblock %}
+
+{% block content %}
+    <div class="sellitem"> 
+            <form class="post_form" action="{% url 'store:sell_item' %}" method="post">         
+                {% csrf_token %}
+                <div class="box1">
+                    {% for field in form.visible_fields %}
+                        {% if field.name == 'name' or field.name == 'description' or field.name == 'category' %}
+                            <div class="{{field.name}}">
+                                <p>{{ field.label_tag }} </p>{{ field }}
+                                {% if field.help_text %}
+                                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            
+                <div class="box2">
+                    {% for field in form.visible_fields %}
+                        {% if field.name == 'price' or field.name == 'currency' or field.name == 'delivery_price' %}
+                            <div class="{{field.name}}s">
+                                {{ field.label_tag }} {{ field }}
+                                {% if field.help_text %}
+                                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="box3">
+                    {% for field in form.visible_fields %}
+                        {% if field.name == 'image' %}
+                            <div class="image">
+                                {{ field.label_tag }} {{ field }}
+                                {% if field.help_text %}
+                                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="buttonbox">
+                    <input id="submitbutton" type="submit" value="Submit">
+                </div>
+            </form>
+        </div>
+{% endblock %}

@@ -1,6 +1,30 @@
 from django.db import models
 from PIL import Image
 
+other = 'Other'
+decoration = 'Decoration'
+food = 'Food'
+onepiece = 'Onepiece'
+electronics = 'Electronics'
+
+CATEGORIES = [
+        (other, 'Other'),
+        (decoration, 'Decoration'),
+        (food, 'Food'),
+        (onepiece, 'Onepiece'),
+        (electronics, 'Electronics')
+    ]
+
+class Category(models.Model):
+    name = models.CharField(max_length=40, choices = CATEGORIES, unique=True)
+    def __str__(self):
+        return self.name
+other = Category(name='Other')
+decoration = Category(name='Decoration')
+food = Category(name='Food')
+onepiece = Category(name='Onepiece')
+electronics = Category(name='Electronics')
+
 class Item(models.Model):
     pln = 'PLN'
     usd = 'USD'
@@ -10,14 +34,12 @@ class Item(models.Model):
         (usd, 'United States dollar'),
         (euro, 'EURO')
         ]
-
+    
     image = models.ImageField(upload_to='item_images/')  
     price = models.IntegerField(default=0)
-    category = models.CharField(max_length=40, default="Other")
+    category = models.ManyToManyField(Category, blank=True, null=True)
     name = models.CharField(max_length=40)
-    currency = models.CharField(max_length=20,
-                                choices = currencies,
-                                default= pln)
+    currency = models.CharField(max_length=20, choices = currencies, default= pln)
     symbol = models.CharField(max_length=20, default="")
     description = models.CharField(max_length=200)
     delivery_price = models.IntegerField(default=0)

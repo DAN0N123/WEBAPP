@@ -1,6 +1,7 @@
 *{
     color: black;
     font-size: 18px;
+    font-family: 'Open Sans'
 }
 .body{
     padding: 0;
@@ -180,11 +181,10 @@ a{
     align-items: center;
     padding: 50px;
     /* justify-content: space-between; */
-    border-bottom: 1.5 px solid #ff7a337c;
+    /* border-bottom: 1px solid #ff7a337c; */
     border-top: 3px solid #ff7a337c;
     /* border-radius: 8px; */
     padding-top: 30px;
-    margin-bottom: 20px;
 }
 .item:hover{
     background-color: #EEEEEE;
@@ -246,4 +246,94 @@ a{
 .querybox a{
     margin-left: 10px;
     margin-top: 30px;
+}
+.sellitem{
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+} 
+
+/* .post_form div{
+    display: flex;
+    width: 500px;
+    height: 200px;
+    border: 3px solid orangered;
+    padding: 16px ;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    flex-direction: column;
+} */
+
+.box1{
+    display: flex;
+    width: 1200px;
+    justify-content: space-between;
+    height: 200px;
+    border: 3px solid #FF7B33;
+    border-radius: 8px;
+    padding: 30px;
+    font-weight: 600;
+}
+
+.box2{
+    display: flex;
+    width: 1200px;
+    justify-content: space-between;
+    height: 100px;
+    border: 3px solid #FF7B33;
+    border-radius: 8px;
+    padding: 16px;
+    font-weight: 600;
+}
+
+.box3{
+    display: flex;
+    width: 1200px;
+    justify-content: space-between;
+    height: 400px;
+    border: 3px solid #FF7B33;
+    border-radius: 8px;
+    padding: 16px;
+    font-weight: 600;
+}
+
+.post_form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.category{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.category p{
+    margin-bottom: 5px;
+}
+.buttonbox{
+    display: flex;
+    align-items: flex-start;
+    height: 400px;
+    
+}
+#submitbutton{
+    border: 3px solid #FF7B33;
+    border-radius: 8px;
+    background-color: #FF7B33;
+    color: black;
+    font-weight: 600;
+    margin-top: 15px;
+    width: 120px;
+    height: 53px;
+}
+#submitbutton:hover{
+    background-color: #d85d1b;
+    border-color: #d85d1b;
+}
+#id_description{
+    height: 80px;
+    resize: none;
 }
