@@ -8,4 +8,8 @@ app_name = "store"
 urlpatterns = [
     path("homepage/", views.homepage, name="homepage"),
     path("sell_item/", views.sell_item, name="sell_item"),
+    path("login/", views.loginstore, name="login"),
+    path("register/", views.register, name="register"),
+    path("logout", views.logoutstore, name="logout"),
+    path('item/', views.itemdisplay, name="item")
 ]

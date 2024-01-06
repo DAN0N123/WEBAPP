@@ -7,7 +7,6 @@
 
 {% block content %}
     <div class="box"> 
-        <h1 class="sign">Register</h1>
         <div class="register_window"> 
             <form class="form" action="{% url 'uno:register' %}" method="post">         
                 {% csrf_token %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>Login</title>
+{% endblock %}
+
+{% block content %}
+<div class="loginbox"> 
+    <div class="loginwindow"> 
+        <form class="post_form" action="{% url 'store:login' %}" method="post">         
+            {% csrf_token %}
+            {{ form.as_div }}
+            <input id="submitbutton" type="submit" value="Login">
+        </form>
+        <div class = "notloggedin">
+            <p> Not logged in?</hp>
+            <a href="{% url 'store:register' %}"> Register</a>
+        </div>
+    </div>
+    
+</div>
+{% endblock %}
