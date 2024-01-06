@@ -86,8 +86,15 @@ a{
     background-color: white;
     color: black;
     border-color: #FF7B33;
+    margin-right: 10px;
 }
-
+.dropdown-toggle:hover{
+    background-color: white;
+    color: black;
+    border-color: #FF7B33;
+    margin-right: 10px;
+    background-color: #c0bfbf;
+}
 .dropdown-toggle#user{
     border-color: white;
 }
@@ -109,6 +116,16 @@ a{
     color: black;
 }
 
+.btn-secondary.dropdown-toggle.categories:hover {
+    background-color: white; 
+}
+
+
+.btn-secondary.dropdown-toggle.categories:focus,
+.btn-secondary.dropdown-toggle.categories:active {
+    background-color: white; 
+    border-color: #FF7B33;
+}
 
 .cart{
     display: flex;
@@ -142,4 +159,91 @@ a{
     align-items: center;
     justify-content: center;
     margin-right: 100px;
+}
+.bigbox{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.items{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 40px;
+    width: 1000px;
+}
+.item{
+    display: flex;
+    /* margin-left: 40px; */
+    width: 800px;
+    height: 300px;
+    align-items: center;
+    padding: 50px;
+    /* justify-content: space-between; */
+    border-bottom: 1.5 px solid #ff7a337c;
+    border-top: 3px solid #ff7a337c;
+    /* border-radius: 8px; */
+    padding-top: 30px;
+    margin-bottom: 20px;
+}
+.item:hover{
+    background-color: #EEEEEE;
+}
+.item_image{
+    margin-top: 20px;
+}
+.item_info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 200px;
+    height: 200px;
+    margin-left: 180px;
+    padding-top: 40px;
+}
+.item_name{
+    margin-bottom: 20px;
+    color: black;
+    font-weight: 400;
+}
+
+.item_price{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    padding: 20px;
+    height: 200px;
+}
+
+.amount{
+    font-weight: 700;
+}
+.delivery{
+    font-weight: 500;
+}
+
+.query{
+    margin-top: 20px;
+}
+
+.buying{
+    display: flex;
+    width: 250px;
+    margin-left: 25px;
+}
+
+#buynow{
+    margin-right: 15px;
+}
+
+.querybox{
+    display: flex;
+}
+
+.querybox a{
+    margin-left: 10px;
+    margin-top: 30px;
 }

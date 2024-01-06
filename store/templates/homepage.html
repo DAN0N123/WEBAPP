@@ -11,18 +11,18 @@
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <div class = "top-bar">
-        <a href = "#"> <h3 class = "logo"> Allegretto </h3> </a>
+        <a href = "{% url 'store:homepage' %}"> <h3 class = "logo"> Allegretto </h3> </a>
         <div class = "searchbar"> 
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <form class="d-flex" role="search" action="{% url 'store:homepage' %}" method="get">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-secondary dropdown-toggle categories" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Categories
                     </button>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Category #1</a></li>
-                      <li><a class="dropdown-item" href="#">Category #2</a></li>
-                      <li><a class="dropdown-item" href="#">Category #3</a></li>
+                      <li><a class="dropdown-item" href="{% url 'store:homepage' %}?category=Decoration">Decoration</a></li>
+                      <li><a class="dropdown-item" href="{% url 'store:homepage' %}?category=Food">Food</a></li>
+                      <li><a class="dropdown-item" href="{% url 'store:homepage' %}?category=Other%">Other</a></li>
                     </ul>
                   </div>
                 <button class="btn btn-outline-success" type="submit">Search</button>
@@ -42,13 +42,36 @@
             </ul>
         </div>
     </div>
-    <div class="items"> 
+    <div class="bigbox">
+      {% if query %}
+      <div class = "querybox">
+        <h2 class="query"> Search results for {{ query }}</h2>
+        <a href="{% url 'store:homepage' %}"> <img src = "{% static 'store/images/x.jpg' %}" width= 20 height= "auto"></a>
+      </div>
+      {% endif %}
+      <div class="items"> 
         {% for item in items %}
-        <div class="item">
-            <div class="item_image"> {{ item.image}}</div>
-            <div class="item_price"> {{ item.price }}</div>
-            <div class="item_name">  {{ item.name }}</div>
-        </div>
+        <a class="item" href="#">
+            <div class="item_image"> <img src="{{ item.image.url }}"> </div>
+            <div class="item_info">
+                <div class="item_name">  {{ item.name }} </div>
+                <div class="item_price"> 
+                    {% if item.symbol == 'zł' %}
+                        <p class="amount">{{ item.price }} {{ item.symbol }}</p>
+                        <p class="delivery"> With delivery: {{ item.total_price}} {{item.symbol}}</p>
+                    {% else %}
+                        <p class="amount">{{ item.symbol }} {{ item.price }}</p>
+                        <p class="delivery"> With delivery: {{item.symbol}} {{ item.total_price}} </p>
+                    {% endif %}
+                    <div class="buying">
+                      <button class="btn btn-outline-success" id="buynow" type="submit">Buy now</button>
+                      <button class="btn btn-outline-success" id ="addcart" type="submit">Add to cart</button>
+                    </div>
+                </div>  
+            </div>
+        </a>
+      {% endfor %}
+      </div>
     </div>
 </body>
 </html>
