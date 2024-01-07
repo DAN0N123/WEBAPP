@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from store.models import Item
+from store.models import Item,  CustomUser
 from store.forms import SellItemForm, LoginForm, RegistrationForm
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.db import IntegrityError
 
 def item_operations(items):
     for item in items:
@@ -16,6 +16,7 @@ def item_operations(items):
                 item.symbol = '$'
             case 'Euro':
                 item.symbol = '€'
+    return items
 
 def homepage(request):
     items = Item.objects.all()
@@ -65,19 +66,20 @@ def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST, request.FILES)
         if form.is_valid():
-            user = User.objects.create_user(
-                username=form.cleaned_data['username'],
-                email=form.cleaned_data['email'],
-                password=form.cleaned_data['password']
-            )
+            email = form.cleaned_data['email']
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-            user.save()
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
+            if CustomUser.objects.filter(email=email).exists():
+                messages.error(request, "Email already exists. Please choose a different one.")
+                return render(request, "registerstore.html", {'form': form})
+
+            try:
+                user = CustomUser.objects.create_user(username=username, email=email, password=password)
                 login(request, user)
-                messages.success(request, "You Have Been Registered")
-                return redirect(reverse('store:homepage')) 
+                messages.success(request, "You have been registered")
+                return redirect(reverse('store:homepage'))
+            except IntegrityError:
+                messages.error(request, "Error creating user. Please try again.")
     else:
         form = RegistrationForm()
     return render(request, "registerstore.html", {'form':form})
@@ -92,3 +94,17 @@ def itemdisplay(request):
     item = Item.objects.get(pk=id)
     item_operations([item])
     return render(request, "item.html", {'item':item})
+
+def add_to_cart(request):
+    id = request.GET.get('id','')
+    user_id = request.GET.get('user_id', '')
+    item = Item.objects.get(pk=id)
+    user = CustomUser.objects.get(pk=user_id)
+    user.cart.add(item)
+    return redirect(reverse("store:homepage"))
+
+def cart(request):
+    user_id = request.GET.get('user_id', '')
+    user = CustomUser.objects.get(pk=user_id)
+    cart = item_operations(user.cart.all())
+    return render(request, 'cart.html', {'cart': cart})

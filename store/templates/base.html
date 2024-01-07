@@ -32,7 +32,7 @@
             
         </div>
         <a class = "messages" href = "#"> <img src = "{% static 'store/images/messages.png' %}" width=40 height="auto"></a>
-        <a class = "cart" href = "#"> <img src = "{% static 'store/images/cart.png' %}" width=40 height="auto"></a>
+        <a class = "cart" href = "{% url 'store:cart' %}?user_id={{ user.id }}"> <img src = "{% static 'store/images/cart.png' %}" width=40 height="auto"></a>
         {% if user.is_authenticated %}
           <div class="dropdown" id="userdrop">
               <button class="btn btn-secondary dropdown-toggle" id="user" type="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -11,5 +11,7 @@ urlpatterns = [
     path("login/", views.loginstore, name="login"),
     path("register/", views.register, name="register"),
     path("logout", views.logoutstore, name="logout"),
-    path('item/', views.itemdisplay, name="item")
+    path("item/", views.itemdisplay, name="item"),
+    path("add_to_cart/", views.add_to_cart, name="add_to_cart"),
+    path("cart/", views.cart , name="cart")
 ]

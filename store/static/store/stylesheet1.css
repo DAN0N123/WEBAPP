@@ -178,14 +178,16 @@ a{
     /* margin-left: 40px; */
     width: 800px;
     height: 300px;
+    flex-direction: row;
     align-items: center;
     padding: 50px;
-    /* justify-content: space-between; */
+    justify-content: space-between;
     /* border-bottom: 1px solid #ff7a337c; */
     border-top: 3px solid #ff7a337c;
     /* border-radius: 8px; */
     padding-top: 30px;
 }
+
 .item:hover{
     background-color: #EEEEEE;
 }
@@ -229,15 +231,15 @@ a{
     margin-top: 20px;
 }
 
-.buying{
+/* .buying{
     display: flex;
     width: 250px;
     margin-left: 25px;
-}
+} */
 
-#buynow{
+/* #buynow{
     margin-right: 15px;
-}
+} */
 
 .querybox{
     display: flex;
@@ -378,12 +380,16 @@ a{
 .notloggedin{
     display: flex;
     margin-top: 40px;
-    flex-direction: column;
+    flex-direction: row;
     height: 80px;
-    justify-content: space-between;
+    width: 100%;
+    justify-content: center;
     align-items: center;
 }
-
+.notloggedin p{
+    margin-top: 18px;
+    margin-right: 5px;
+}
 .notloggedin a{
     text-decoration: none;
     color: black;
@@ -433,4 +439,23 @@ a{
 
 .buynowitem{
     margin-top: 15px;
+}
+
+.linkbackground1,
+.linkbackground2{
+    display: flex;
+    position: absolute;
+}
+
+.linkbackground1{
+    width: 540px;
+    height: 300px;
+    margin-left: -60px;
+}
+
+.linkbackground2{
+    height: 210px;
+    width: 300px;
+    margin-left: 470px;
+    margin-top: -80px;
 }

@@ -1,6 +1,5 @@
 from django import forms
-from .models import Item, Category
-from django.contrib.auth.models import User
+from .models import Item, Category, CustomUser
 class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
@@ -41,7 +40,7 @@ class LoginForm(forms.Form):
     confirm_password = forms.CharField(label='', widget=forms.PasswordInput(attrs={'placeholder': 'Confirm password'}))
 
     def clean(self):
-        users = User.objects.all()
+        users = CustomUser.objects.all()
         user_names = [user.username for user in users]
         cleaned_data = super().clean()
         password = cleaned_data.get('password')

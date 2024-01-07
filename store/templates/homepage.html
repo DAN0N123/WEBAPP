@@ -10,26 +10,29 @@
       {% endif %}
       <div class="items"> 
         {% for item in items %}
-        <a class="item" href="{% url 'store:item' %}?id={{ item.pk }}" id = "{{ item.pk }}">
+          <div class="item"  id="{{ item.pk }}">
+            <a class = "linkbackground1" href="{% url 'store:item' %}?id={{ item.pk }}"></a>
+            <a class = "linkbackground2" href="{% url 'store:item' %}?id={{ item.pk }}"></a>
             <div class="item_image"> <img src="{{ item.image.url }}"> </div>
             <div class="item_info">
                 <div class="item_name">  {{ item.name }} </div>
                 <div class="item_price"> 
                     {% if item.symbol == 'zł' %}
                         <p class="amount">{{ item.price }} {{ item.symbol }}</p>
-                        <p class="delivery"> With delivery: {{ item.total_price}} {{item.symbol}}</p>
+                        <p class="delivery"> With delivery: {{ item.total_price }} {{ item.symbol }}</p>
                     {% else %}
                         <p class="amount">{{ item.symbol }} {{ item.price }}</p>
-                        <p class="delivery"> With delivery: {{item.symbol}} {{ item.total_price}} </p>
+                        <p class="delivery"> With delivery: {{ item.symbol }} {{ item.total_price }} </p>
                     {% endif %}
                     <div class="buying">
-                      <button class="btn btn-outline-success" id="buynow" type="submit">Buy now</button>
-                      <button class="btn btn-outline-success" id ="addcart" type="submit">Add to cart</button>
+                        <a class="btn btn-outline-success" href="#"> Buy now</a>
+                        <a class="btn btn-outline-success" href="{% url 'store:add_to_cart' %}?id={{ item.pk }}&user_id={{ user.id }}"> Add to cart</a>
                     </div>
-                </div>  
+                </div>
             </div>
-        </a>
+          </div>
       {% endfor %}
+    
       </div>
     </div>
 {% endblock %}
