@@ -4,15 +4,21 @@
     <div class="bigbox">
       {% if query %}
       <div class = "querybox">
-        <h2 class="query"> Search results for {{ query }}</h2>
+        <h2 class="query"> Search results for '{{ query }}'</h2>
         <a href="{% url 'store:homepage' %}"> <img src = "{% static 'store/images/x.jpg' %}" width= 20 height= "auto"></a>
       </div>
       {% endif %}
       <div class="items"> 
         {% for item in items %}
           <div class="item"  id="{{ item.pk }}">
+            {% if item in user.favorites.all %}
+            <a class = "favorite" href = "{% url 'store:unfavorite_item' %}?id={{ item.pk }}&user_id={{ user.id }}"><img src = "{% static 'store/images/star.png' %}" width= 30 height= "auto"></a>
+            {% else %}
+            <a class = "favorite" href = "{% url 'store:favorite_item' %}?id={{ item.pk }}&user_id={{ user.id }}"><img src = "{% static 'store/images/star_black.png' %}" width= 30 height= "auto"></a>
+            {% endif %}
             <a class = "linkbackground1" href="{% url 'store:item' %}?id={{ item.pk }}"></a>
             <a class = "linkbackground2" href="{% url 'store:item' %}?id={{ item.pk }}"></a>
+            <a class = "linkbackground3" href="{% url 'store:item' %}?id={{ item.pk }}"></a>
             <div class="item_image"> <img src="{{ item.image.url }}"> </div>
             <div class="item_info">
                 <div class="item_name">  {{ item.name }} </div>

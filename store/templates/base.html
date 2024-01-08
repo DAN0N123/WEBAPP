@@ -14,9 +14,9 @@
         <a href = "{% url 'store:homepage' %}"> <h3 class = "logo"> Allegretto </h3> </a>
         <div class = "searchbar"> 
             <form class="d-flex" role="search" action="{% url 'store:homepage' %}" method="get">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
+                <input class="form-control me-2" type="search" aria-label="Search" name="q" placeholder="Search" autocomplete="off">
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle categories" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-secondary dropdown-toggle categories notm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Categories
                     </button>
                     <ul class="dropdown-menu">
@@ -31,17 +31,32 @@
               </form>
             
         </div>
-        <a class = "messages" href = "#"> <img src = "{% static 'store/images/messages.png' %}" width=40 height="auto"></a>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" id = "messages" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src = "{% static 'store/images/messages.png' %}" width=40 height="auto">
+          </button>
+          <ul class="dropdown-menu">
+            <div class="announcements">
+              {% for message in user_messages %}
+                {% if message.time_sent != None %}
+                  <li><div class="message"> {{ message.message }} - {{ message.time_sent }}</div></li>
+                {% else %}
+                <li><div class="message"> {{ message.message }} - {% now "Y:M:D H:i" %}</div></li>
+                {% endif %}
+              {% endfor %}
+            </div>  
+          </ul>
+        </div> 
         <a class = "cart" href = "{% url 'store:cart' %}?user_id={{ user.id }}"> <img src = "{% static 'store/images/cart.png' %}" width=40 height="auto"></a>
         {% if user.is_authenticated %}
           <div class="dropdown" id="userdrop">
-              <button class="btn btn-secondary dropdown-toggle" id="user" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <button class="btn btn-secondary dropdown-toggle notm" id="user" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {{ user.username }}
               </button>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="#">My purchases</a></li>
                 <li><a class="dropdown-item" href="{% url 'store:sell_item' %}">Sell item</a></li>
-                <li><a class="dropdown-item" href="#">Favorite</a></li>
+                <li><a class="dropdown-item" href = "{% url 'store:favorites' %}?user_id={{ user.id }}">Favorite</a></li>
                 <li><a class="dropdown-item" href="{% url 'store:logout' %}">Logout</a></li>
               </ul>
           </div>

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from store.models import Item,  CustomUser
+from store.models import Item,  CustomUser, Message
 from store.forms import SellItemForm, LoginForm, RegistrationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -22,13 +22,27 @@ def homepage(request):
     items = Item.objects.all()
     query = request.GET.get('q', '')
     category = request.GET.get('category', '')
+    user = request.user
+    messages = None
+    if user.username:
+        user.messages.clear()
+        for i in range(0,5):
+            message = Message.objects.create(message="Hello World")
+            user.messages.add(message)
+        messages = reversed(user.messages.all())
     if query:
         items = Item.objects.filter(name__icontains=query)
+        item_operations(items)
+        items = reversed(items)
+        return render(request, 'homepage.html', {'items':items,'user_messages':messages, 'query':query})
     if category:
         items = items.filter(category__name__iexact=category)
+
     item_operations(items)
     items = reversed(items)
-    return render(request, 'homepage.html', {'items':items})
+    return render(request, 'homepage.html', {'items':items, 'user_messages': messages})
+    
+    
 
 def sell_item(request):
     if request.method == 'POST':
@@ -92,8 +106,15 @@ def logoutstore(request):
 def itemdisplay(request):
     id = request.GET.get('id', '')
     item = Item.objects.get(pk=id)
+    user = request.user
+    user_messages = None
+    if user.username:
+        if len(user.messages.all()) == 0:
+            message = Message.objects.create(message="Hello World")
+            user.messages.add(message)
+        user_messages = reversed(user.messages.all())
     item_operations([item])
-    return render(request, "item.html", {'item':item})
+    return render(request, "item.html", {'item':item, "user_messages":user_messages})
 
 def add_to_cart(request):
     id = request.GET.get('id','')
@@ -101,10 +122,47 @@ def add_to_cart(request):
     item = Item.objects.get(pk=id)
     user = CustomUser.objects.get(pk=user_id)
     user.cart.add(item)
-    return redirect(reverse("store:homepage"))
+    return redirect(reverse("store:cart") + f'?user_id={user_id}')
 
 def cart(request):
     user_id = request.GET.get('user_id', '')
     user = CustomUser.objects.get(pk=user_id)
-    cart = item_operations(user.cart.all())
-    return render(request, 'cart.html', {'cart': cart})
+    cart = reversed(item_operations(user.cart.all()))
+    user_messages = None
+    if user.username:
+        if len(user.messages.all()) == 0:
+            message = Message.objects.create(message="Hello World")
+            user.messages.add(message)
+        user_messages = reversed(user.messages.all())
+    return render(request, 'cart.html', {'cart': cart, 'user_messages':user_messages})
+
+def favorite_item(request):
+    id = request.GET.get('id','')
+    user_id = request.GET.get('user_id', '')
+    item = Item.objects.get(pk=id)
+    user = CustomUser.objects.get(pk=user_id)
+    item.favorites += 1
+    user.favorites.add(item)
+    print(user.favorites.all())
+    return redirect(reverse("store:homepage"))
+
+def unfavorite_item(request):
+    id = request.GET.get('id','')
+    user_id = request.GET.get('user_id', '')
+    item = Item.objects.get(pk=id)
+    user = CustomUser.objects.get(pk=user_id)
+    item.favorites -= 1
+    user.favorites.remove(item)
+    return redirect(reverse("store:homepage"))
+
+def favorites(request):
+    user_id = request.GET.get('user_id', '')
+    user = CustomUser.objects.get(pk=user_id)
+    user_messages = None
+    if user.username:
+        if len(user.messages.all()) == 0:
+            message = Message.objects.create(message="Hello World")
+            user.messages.add(message)
+        user_messages = reversed(user.messages.all())
+    favorite_items = reversed(item_operations(user.favorites.all()))
+    return render(request, 'cart.html', {'favorites': favorite_items, 'user_messages':user_messages})

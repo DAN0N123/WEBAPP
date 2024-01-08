@@ -83,36 +83,36 @@ a{
     font-weight: 500;
     font-size: 18px;
 }
-.dropdown-toggle.notm{
+.dropdown-toggle{
     background-color: white;
     color: black;
     border-color: #FF7B33;
     margin-right: 10px;
 }
-.dropdown-toggle.notm:hover{
+.dropdown-toggle:hover{
     background-color: white;
     color: black;
     border-color: #FF7B33;
     margin-right: 10px;
     background-color: #c0bfbf;
 }
-.dropdown-toggle.notm#user{
+.dropdown-toggle#user{
     border-color: white;
 }
-.dropdown-toggle.notm#user:hover{
+.dropdown-toggle#user:hover{
     border-color: white;
     background-color: white;
     color: black;
 }
 
 
-.btn-secondary.dropdown-toggle.notm:hover {
+.btn-secondary.dropdown-toggle:hover {
     background-color: white; 
 }
 
 
-.btn-secondary.dropdown-toggle.notm:focus,
-.btn-secondary.dropdown-toggle.notm:active {
+.btn-secondary.dropdown-toggle:focus,
+.btn-secondary.dropdown-toggle:active {
     background-color: white; 
     color: black;
 }
@@ -442,8 +442,7 @@ a{
 }
 
 .linkbackground1,
-.linkbackground2,
-.linkbackground3{
+.linkbackground2{
     display: flex;
     position: absolute;
 }
@@ -451,78 +450,25 @@ a{
 .linkbackground1{
     width: 540px;
     height: 300px;
-    /* border: 3px solid red; */
     margin-left: -60px;
 }
 
 .linkbackground2{
-    /* border: 3px solid red; */
     height: 210px;
-    width: 230px;
+    width: 300px;
     margin-left: 470px;
     margin-top: -80px;
 }
-.linkbackground3{
-    /* border: 3px solid red; */
-    height: 150px;
-    width: 80px;
-    margin-left: 670px;
-    margin-top: -20px;
-}
+
 
 .favorite{
     position: absolute;
     margin-bottom: 210px;
-    margin-left: 700px;
+    margin-left: 690px;
+    /* transform: translate(-50%, -50%); */
     display: none;
 }
 
 .item:hover .favorite{
     display: block;
-}
-
-
-.dropdown-toggle#messages{
-    background-color: white;
-    color: black;
-    border: none;
-    margin-right: 10px;
-
-    
-}
-.dropdown-toggle#messages:hover{
-    background-color: white;
-    color: black;
-    border-color: #FF7B33;
-    margin-right: 10px;
-    background-color: #c0bfbf;
-}
-.dropdown-toggle#messages::after{
-    content: none;
-}
-
-
-.btn-secondary.dropdown-toggle#messages:hover {
-    background-color: white; 
-}
-
-
-.message{
-    display: flex;
-    width: 280px;
-    margin-bottom: 20px;
-    /* border-bottom: 1px solid #d85d1b; */
-    
-}
-
-.announcements{
-    display: flex;
-    width: 320px;
-    padding-bottom: 10px;
-    flex-direction: column;
-    /* padding: 20px; */
-    padding-left: 20px;
-    padding-top: 20px;
-    /* padding-bottom: -20px;
-    padding-left: -20px; */
 }

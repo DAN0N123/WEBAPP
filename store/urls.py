@@ -13,5 +13,8 @@ urlpatterns = [
     path("logout", views.logoutstore, name="logout"),
     path("item/", views.itemdisplay, name="item"),
     path("add_to_cart/", views.add_to_cart, name="add_to_cart"),
-    path("cart/", views.cart , name="cart")
+    path("cart/", views.cart , name="cart"),
+    path("favorite_item/", views.favorite_item, name="favorite_item"),
+    path("unfavorite_item/", views.unfavorite_item, name="unfavorite_item"),
+    path("favorites/", views.favorites, name="favorites")
 ]

@@ -7,9 +7,14 @@
 {% load static %}
     <div class="bigbox">
       <div class = "querybox">
+        {% if cart %}
         <h2 class="query"> Your cart: </h2>
+        {% else %}
+        <h2 class="query"> Favorite items: </h2>
+        {% endif %}
       </div>
       <div class="items"> 
+        {% if cart %}
         {% for item in cart %}
           <div class="item"  id="{{ item.pk }}">
             <a class = "linkbackground1" href="{% url 'store:item' %}?id={{ item.pk }}"></a>
@@ -28,7 +33,28 @@
                 </div>
             </div>
             </div>
-      {% endfor %}
+        {% endfor %}
+        {% else %}
+        {% for item in favorites %}
+        <div class="item"  id="{{ item.pk }}">
+          <a class = "linkbackground1" href="{% url 'store:item' %}?id={{ item.pk }}"></a>
+          <a class = "linkbackground2" href="{% url 'store:item' %}?id={{ item.pk }}"></a>
+          <div class="item_image"> <img src="{{ item.image.url }}"> </div>
+          <div class="item_info">
+              <div class="item_name">  {{ item.name }} </div>
+              <div class="item_price"> 
+                  {% if item.symbol == 'zł' %}
+                      <p class="amount">{{ item.price }} {{ item.symbol }}</p>
+                      <p class="delivery"> With delivery: {{ item.total_price }} {{ item.symbol }}</p>
+                  {% else %}
+                      <p class="amount">{{ item.symbol }} {{ item.price }}</p>
+                      <p class="delivery"> With delivery: {{ item.symbol }} {{ item.total_price }} </p>
+                  {% endif %}
+              </div>
+          </div>
+          </div>
+          {% endfor %}
+          {% endif %}
         </div>
     </div>
 
