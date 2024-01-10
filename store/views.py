@@ -5,18 +5,7 @@ from store.forms import SellItemForm, LoginForm, RegistrationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.db import IntegrityError
-
-def item_operations(items):
-    for item in items:
-        item.total_price = item.price + item.delivery_price
-        match item.currency:
-            case 'PLN':
-                item.symbol = 'zł'
-            case 'USD':
-                item.symbol = '$'
-            case 'Euro':
-                item.symbol = '€'
-    return items
+from django.db.models import Sum
 
 def homepage(request):
     items = Item.objects.all()
@@ -32,13 +21,10 @@ def homepage(request):
         messages = reversed(user.messages.all())
     if query:
         items = Item.objects.filter(name__icontains=query)
-        item_operations(items)
         items = reversed(items)
         return render(request, 'homepage.html', {'items':items,'user_messages':messages, 'query':query})
     if category:
         items = items.filter(category__name__iexact=category)
-
-    item_operations(items)
     items = reversed(items)
     return render(request, 'homepage.html', {'items':items, 'user_messages': messages})
     
@@ -50,8 +36,6 @@ def sell_item(request):
         if form.is_valid():
             item = form.save()
             return redirect(reverse('store:homepage'))  
-        # else:
-        #     print(form.errors)
     else:
         form = SellItemForm()
     
@@ -113,7 +97,6 @@ def itemdisplay(request):
             message = Message.objects.create(message="Hello World")
             user.messages.add(message)
         user_messages = reversed(user.messages.all())
-    item_operations([item])
     return render(request, "item.html", {'item':item, "user_messages":user_messages})
 
 def add_to_cart(request):
@@ -125,16 +108,16 @@ def add_to_cart(request):
     return redirect(reverse("store:cart") + f'?user_id={user_id}')
 
 def cart(request):
-    user_id = request.GET.get('user_id', '')
-    user = CustomUser.objects.get(pk=user_id)
-    cart = reversed(item_operations(user.cart.all()))
+    user = request.user
+    cart = user.cart.all()
     user_messages = None
     if user.username:
         if len(user.messages.all()) == 0:
             message = Message.objects.create(message="Hello World")
             user.messages.add(message)
-        user_messages = reversed(user.messages.all())
-    return render(request, 'cart.html', {'cart': cart, 'user_messages':user_messages})
+        user_messages = user.messages.all()
+    total = cart.aggregate(total_price=Sum('total_price'))['total_price'] or 0
+    return render(request, 'cart.html', {'cart': cart, 'user_messages':user_messages, 'total':total})
 
 def favorite_item(request):
     id = request.GET.get('id','')
@@ -156,13 +139,34 @@ def unfavorite_item(request):
     return redirect(reverse("store:homepage"))
 
 def favorites(request):
-    user_id = request.GET.get('user_id', '')
-    user = CustomUser.objects.get(pk=user_id)
+    user = request.user
     user_messages = None
     if user.username:
         if len(user.messages.all()) == 0:
             message = Message.objects.create(message="Hello World")
             user.messages.add(message)
-        user_messages = reversed(user.messages.all())
-    favorite_items = reversed(item_operations(user.favorites.all()))
+        user_messages = user.messages.all()
+    favorite_items = user.favorites.all()
     return render(request, 'cart.html', {'favorites': favorite_items, 'user_messages':user_messages})
+
+def deletecart(request):
+    id = request.GET.get('id','')
+    action = request.GET.get('action')
+    item = Item.objects.get(pk=id)
+    user = request.user
+    if action:
+        if action == 'cart':
+            user.cart.remove(item)
+            cart = (user.cart.all())
+            favorite_items = (user.favorites.all())
+            user_messages = user.messages.all()
+            return redirect(reverse("store:cart") + f'?user_messages={user_messages}&cart={cart}')
+        else:
+            user.favorites.remove(item)
+            cart = (user.cart.all())
+            favorite_items = (user.favorites.all())
+            user_messages = user.messages.all()
+            return redirect(reverse("store:favorites") + f'?user_messages={user_messages}&favorites={favorite_items}')
+    
+    
+

@@ -24,8 +24,8 @@
             
                 <div class="box2">
                     {% for field in form.visible_fields %}
-                        {% if field.name == 'price' or field.name == 'currency' or field.name == 'delivery_price' %}
-                            <div class="{{field.name}}s">
+                        {% if field.name == 'price' or field.name == 'delivery_price' %}
+                            <div class="{{field.name}}">
                                 {{ field.label_tag }} {{ field }}
                                 {% if field.help_text %}
                                     <small class="form-text text-muted">{{ field.help_text }}</small>

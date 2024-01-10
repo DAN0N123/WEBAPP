@@ -9,20 +9,10 @@
         <div class="iteminfo">
             <h2><strong> {{ item.name}} </strong></h2>
             <p> Description: {{ item.description}}</p>
-            {% if item.currency == 'PLN' %}
-            <h4> {{item.price}} {{item.symbol}}</h4>
-            <h7> Price with delivery: {{item.total_price}} {{item.symbol}} </h7>
-            {% else %}
-            <h4> {{item.symbol}} {{item.price}} </h4>
-            <h7> Price with delivery: {{item.symbol}} {{item.total_price}} </h7>
+            <h4> $ {{item.price}}</h4>
+            <h7> Price with delivery: $ {{item.total_price}}</h7>
             <button class="btn btn-outline-success buynowitem" id="buynowitem" type="submit">Buy now</button>
             {% endif %}
         </div>
     </div>
-
-
-
-
-
-
 {% endblock %}

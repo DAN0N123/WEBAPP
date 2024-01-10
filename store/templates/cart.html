@@ -6,50 +6,51 @@
 
 {% load static %}
     <div class="bigbox">
+      <div class = "checkout"> 
+        {% for item in cart reversed%}
+        <div class="checkoutitem">
+            <p>{{ item.name }} - ${{ item.total_price }}</p>
+        </div>
+        {% endfor %}
+        <div class="total"> <strong>Total: ${{ total }}</strong></div>
+
+      </div>
       <div class = "querybox">
         {% if cart %}
         <h2 class="query"> Your cart: </h2>
         {% else %}
-        <h2 class="query"> Favorite items: </h2>
+        <h2 class="query"> Favorite items:  </h2>
         {% endif %}
       </div>
       <div class="items"> 
         {% if cart %}
-        {% for item in cart %}
+        {% for item in cart reversed %}
           <div class="item"  id="{{ item.pk }}">
+            <a class = "deletecart" href="{% url 'store:delete' %}?id={{ item.pk }}&action=cart"> <img src = "{% static 'store/images/x.png' %}" width=45 height="auto"></a>
             <a class = "linkbackground1" href="{% url 'store:item' %}?id={{ item.pk }}"></a>
             <a class = "linkbackground2" href="{% url 'store:item' %}?id={{ item.pk }}"></a>
             <div class="item_image"> <img src="{{ item.image.url }}"> </div>
             <div class="item_info">
                 <div class="item_name">  {{ item.name }} </div>
                 <div class="item_price"> 
-                    {% if item.symbol == 'zł' %}
-                        <p class="amount">{{ item.price }} {{ item.symbol }}</p>
-                        <p class="delivery"> With delivery: {{ item.total_price }} {{ item.symbol }}</p>
-                    {% else %}
-                        <p class="amount">{{ item.symbol }} {{ item.price }}</p>
-                        <p class="delivery"> With delivery: {{ item.symbol }} {{ item.total_price }} </p>
-                    {% endif %}
+                        <p class="amount">$ {{ item.price }}</p>
+                        <p class="delivery"> With delivery: $ {{ item.total_price }}</p>
                 </div>
             </div>
             </div>
         {% endfor %}
         {% else %}
-        {% for item in favorites %}
+        {% for item in favorites reversed%}
         <div class="item"  id="{{ item.pk }}">
+            <a class = "deletecart" href="{% url 'store:delete' %}?id={{ item.pk }}&action=favorites"> <img src = "{% static 'store/images/x.png' %}" width=45 height="auto"></a>
           <a class = "linkbackground1" href="{% url 'store:item' %}?id={{ item.pk }}"></a>
           <a class = "linkbackground2" href="{% url 'store:item' %}?id={{ item.pk }}"></a>
           <div class="item_image"> <img src="{{ item.image.url }}"> </div>
           <div class="item_info">
               <div class="item_name">  {{ item.name }} </div>
               <div class="item_price"> 
-                  {% if item.symbol == 'zł' %}
-                      <p class="amount">{{ item.price }} {{ item.symbol }}</p>
-                      <p class="delivery"> With delivery: {{ item.total_price }} {{ item.symbol }}</p>
-                  {% else %}
-                      <p class="amount">{{ item.symbol }} {{ item.price }}</p>
-                      <p class="delivery"> With delivery: {{ item.symbol }} {{ item.total_price }} </p>
-                  {% endif %}
+                <p class="amount">$ {{ item.price }}</p>
+                <p class="delivery"> With delivery: $ {{ item.total_price }}</p>
               </div>
           </div>
           </div>
@@ -57,9 +58,6 @@
           {% endif %}
         </div>
     </div>
-
-
-
-
+ 
 {% endblock %}
 

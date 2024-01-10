@@ -16,5 +16,6 @@ urlpatterns = [
     path("cart/", views.cart , name="cart"),
     path("favorite_item/", views.favorite_item, name="favorite_item"),
     path("unfavorite_item/", views.unfavorite_item, name="unfavorite_item"),
-    path("favorites/", views.favorites, name="favorites")
+    path("favorites/", views.favorites, name="favorites"),
+    path("delete/", views.deletecart, name ="delete")
 ]

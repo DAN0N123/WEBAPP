@@ -15,7 +15,7 @@ class CustomUserAdmin(UserAdmin):
     display_cart.short_description = 'Cart'
     display_favorites.short_description = 'Favorites'
 class ItemAdmin(admin.ModelAdmin):
-    readonly_fields = ('symbol', 'total_price')
+    readonly_fields = ('total_price', 'favorites')
     filter_horizontal = ['category']
 
 admin.site.register(Category)

@@ -5,7 +5,7 @@
       {% if query %}
       <div class = "querybox">
         <h2 class="query"> Search results for '{{ query }}'</h2>
-        <a href="{% url 'store:homepage' %}"> <img src = "{% static 'store/images/x.jpg' %}" width= 20 height= "auto"></a>
+        <a href="{% url 'store:homepage' %}"> <img src = "{% static 'store/images/x.png' %}" width= 20 height= "auto"></a>
       </div>
       {% endif %}
       <div class="items"> 
@@ -23,13 +23,8 @@
             <div class="item_info">
                 <div class="item_name">  {{ item.name }} </div>
                 <div class="item_price"> 
-                    {% if item.symbol == 'zł' %}
-                        <p class="amount">{{ item.price }} {{ item.symbol }}</p>
-                        <p class="delivery"> With delivery: {{ item.total_price }} {{ item.symbol }}</p>
-                    {% else %}
-                        <p class="amount">{{ item.symbol }} {{ item.price }}</p>
-                        <p class="delivery"> With delivery: {{ item.symbol }} {{ item.total_price }} </p>
-                    {% endif %}
+                        <p class="amount">$ {{ item.price }}</p>
+                        <p class="delivery"> With delivery: $ {{ item.total_price }}</p>
                     <div class="buying">
                         <a class="btn btn-outline-success" href="#"> Buy now</a>
                         <a class="btn btn-outline-success" href="{% url 'store:add_to_cart' %}?id={{ item.pk }}&user_id={{ user.id }}"> Add to cart</a>

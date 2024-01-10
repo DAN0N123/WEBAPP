@@ -22,7 +22,7 @@ class SellItemForm(forms.ModelForm):
 
     class Meta:
         model = Item
-        fields = ['name', 'description', 'price', 'currency', 'delivery_price', 'category', 'image']
+        fields = ['name', 'description', 'price', 'delivery_price', 'category', 'image']
         widgets = {
             'name': forms.TextInput(attrs={'autocomplete': 'off'}),
             'description': forms.Textarea(attrs={'autocomplete': 'off'}),

@@ -37,7 +37,7 @@
           </button>
           <ul class="dropdown-menu">
             <div class="announcements">
-              {% for message in user_messages %}
+              {% for message in user_messages reversed %}
                 {% if message.time_sent != None %}
                   <li><div class="message"> {{ message.message }} - {{ message.time_sent }}</div></li>
                 {% else %}
